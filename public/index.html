@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vercel App | Starter Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <main class="container">
+    <header class="header">
+      <div class="badge">
+        <span class="status-dot"></span>
+        <span>Repository Ready &bull; Vercel Configured</span>
+      </div>
+      <h1>Project Starter Template</h1>
+      <p class="subtitle">Struktur repositori dengan frontend statis di <code>/public/</code> dan Serverless Functions di <code>/api/</code>.</p>
+    </header>
+
+    <section class="card-grid">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Serverless API</h3>
+        <p>Endpoint API terkonfigurasi di direktori <code>/api/</code> dan siap dideploy langsung ke Vercel tanpa server backend terpisah.</p>
+        <div class="api-tester">
+          <button id="btn-test" class="btn primary-btn">Uji Endpoint /api/hello</button>
+        </div>
+        <div id="api-result" class="code-block" style="display: none;">
+          <pre><code id="json-output">...</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📁</div>
+        <h3>Struktur Folder</h3>
+        <ul class="structure-list">
+          <li><strong>/api/</strong> &mdash; Berisi serverless API functions</li>
+          <li><strong>/public/</strong> &mdash; Berisi aset statis (HTML, CSS, assets)</li>
+          <li><strong>vercel.json</strong> &mdash; Pengaturan routing & deployment</li>
+          <li><strong>.gitignore</strong> &mdash; Mengabaikan node_modules & cache</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Dihubungkan ke Git Local & GitHub &bull; Dibuat untuk deployment mulus di Vercel</p>
+    </footer>
+  </main>
+
+  <script>
+    const btn = document.getElementById('btn-test');
+    const resultBox = document.getElementById('api-result');
+    const jsonOutput = document.getElementById('json-output');
+
+    btn.addEventListener('click', async () => {
+      btn.textContent = 'Memanggil API...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/hello?name=Developer');
+        if (!res.ok) throw new Error('Status: ' + res.status);
+        const data = await res.json();
+        jsonOutput.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        jsonOutput.textContent = JSON.stringify({
+          info: 'Endpoint /api/hello siap. Bila diuji secara lokal (tanpa Vercel CLI), jalankan via "vercel dev".',
+          error: err.message
+        }, null, 2);
+      } finally {
+        resultBox.style.display = 'block';
+        btn.textContent = 'Uji Endpoint Lagi';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

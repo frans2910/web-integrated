@@ -1,0 +1,19 @@
+{
+  "name": "vercel-project",
+  "version": "1.0.0",
+  "description": "Repositori template Vercel dengan API serverless dan public static frontend",
+  "main": "api/hello.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "vercel",
+    "serverless",
+    "api",
+    "public"
+  ],
+  "author": "frans2910",
+  "license": "MIT"
+}
